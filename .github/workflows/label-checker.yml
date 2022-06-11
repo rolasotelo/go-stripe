@@ -1,0 +1,52 @@
+#              _.-````'-,_
+#    _,.,_ ,-'`           `'-.,_
+#  /)     (\                   '``-.
+# ((      ) )                      `\
+#  \)    (_/                        )\
+#   |       /)           '    ,'    / \
+#   `\    ^'            '     (    /  ))
+#     |      _/\ ,     /    ,,`\   (  "`
+#      \Y,   |  \  \  | ````| / \_ \
+#        `)_/    \  \  )    ( >  ( >
+#                 \( \(     |/   |/
+#     mic & dwb  /_(/_(    /_(  /_(
+---
+name: Label checker 👮🏻‍♂️ 🏷
+on:
+  pull_request:
+    types:
+      - ready_for_review
+      - review_requested
+      - synchronize
+
+jobs:
+  labeler:
+    name: Label Police 👮🏻‍♂️ 🏷
+    runs-on: ubuntu-latest
+    steps:
+      - name: SemVer labels ✨ 🐛 🧰
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: major,minor,patch,chore
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for effort labels 💪🏼 👨🏼‍💻
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: |
+            effort: 1️⃣,effort: 1️⃣3️⃣,effort: 2️⃣,effort: 3️⃣,effort: 5️⃣,effort: 8️⃣,
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for work labels 🧠 👩🏼‍💻
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: |
+            work: clear 🥱,work: complex 😳,work: complicated 😬,work: chaotic 😱,
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for type labels 🐖 🦃 🏷
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: |
+            type: fix 🩹,type: security 🔒,type: documentation 📝,type: infrastructure 🧱,type: feature ✨,type: hotfix 🚑,type: bug 🐛,type: testing 🔎,type: dx 👩🏼‍💻,type: ci/cd 👷🏾,type: improvement ⚡️,
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
