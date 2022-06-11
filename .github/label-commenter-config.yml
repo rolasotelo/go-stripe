@@ -36,7 +36,7 @@ labels:
       pr:
         body: |
           🏷 ( MVPR 🌮 )
-          You 'nantli' 👨🏿‍🌾 deserve a vegan taco 🌮!
+          You 👨🏿‍🌾 deserve a vegan taco 🌮!
 
           Your effort is very much appreciated, please someone in here type '/giphy Have a taco! in a comment'
   - name: "locked: resolved ✅"
@@ -151,8 +151,6 @@ labels:
           🏷 ( good first issue 👑 )
           This issue is easy for contributing. Everyone can work on this 🐄 🐖 🦃.
 
-          Here at @nantli we are a group of friends wanting to create awereness of animal rights while learning and sharing thechnology 👩🏽‍🌾 👩🏼‍💻.
-          Visit our website [Nantli](https://nantli.xyz) and be kind to animals 🐷!
   - name: "help wanted 🙏🏾"
     labeled:
       issue:
@@ -203,12 +201,12 @@ labels:
       issue:
         body: |
           🏷 ( type: hotfix 🚑 )
-          Whe need 'nantli' 👨🏿‍🌾 help, now!
+          Whe need 👨🏿‍🌾 help, now!
 
-          But please someone put a '/giphy everything is fine' in the comments, so everyone can see that we 'nantlis' always do just fine, under any circunstances 🫣.
+          But please someone put a '/giphy everything is fine' in the comments
       pr:
         body: |
           🏷 ( type: hotfix 🚑 )
           To the rescue 👨🏿‍🌾 !
 
-          But please someone put a '/giphy we are just fine' in the comments, so everyone can see that we 'nantlis' always do just fine, under any circunstances 🫣.
+          But please someone put a '/giphy we are just fine' in the comments

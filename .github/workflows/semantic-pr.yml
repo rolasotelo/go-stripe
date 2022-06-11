@@ -9,7 +9,7 @@
 # (XXXXX/'`------)))`=-'"`'"___________/__/__\___\___ _ _ _ \)___________
 #  ~~~~~
 ---
-name: Semantic PR ✨ 🐛 🧰
+name: Semantic PR
 
 on:
   pull_request_target:

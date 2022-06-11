@@ -31,7 +31,7 @@
 #                  (.'(.'
 # 6400
 ---
-name: Comment GIF 🥹
+name: Comment GIF
 on:
   issues:
     types: [opened]

@@ -12,7 +12,7 @@
 #           |  |    |
 # -dana`98- |       |
 ---
-name: Forbidden label checker 👮🏻‍♂️
+name: Forbidden label checker
 on:
   pull_request:
     types:

@@ -4,7 +4,7 @@
 #       (` =~~/    (` =~~/    (` =~~/    (` =~~/    (` =~~/
 # jgs~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~
 ---
-name: PR Mandatory labeler 🚔 🏷
+name: PR Mandatory labeler
 on:
   pull_request:
     types:

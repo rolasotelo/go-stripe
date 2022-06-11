@@ -13,7 +13,7 @@
 # -hrr-   .;;./  '   )   '   )       ///'       `-"'
 #         `--'   7//\    ///\
 ---
-name: Issue labeler 👩🏽‍🌾 🏷
+name: Issue labeler
 on:
   issues:
     types: [opened, edited]
