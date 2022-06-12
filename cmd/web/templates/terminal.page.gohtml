@@ -5,7 +5,7 @@
 {{ end }}
 
 {{ define "content" }}
-    <h2 class="mt-3 text-center">Virtual Terminal Edit</h2>
+    <h2 class="mt-3 text-center">Virtual Terminal</h2>
     <hr>
 
     <div class="alert alert-danger text-center d-none" id="card-messages"></div>
@@ -45,7 +45,13 @@
                 <div class="spinner-border text-primary" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
+            </div>
         </div>
+
+        <input type="hidden" name="payment_intent" id="payment_intent">
+        <input type="hidden" name="payment_method" id="payment_method">
+        <input type="hidden" name="payment_amount" id="payment_amount">
+        <input type="hidden" name="payment_currency" id="payment_currency">
 
     </form>
 
@@ -64,6 +70,29 @@
 
         stripe = Stripe('pk_test_')
 
+        function hidePayButtons() {
+            payButton.classList.add('d-none')
+            processing.classList.remove('d-none')
+        }
+        function showPayButtons() {
+            payButton.classList.remove('d-none')
+            processing.classList.add('d-none')
+        }
+
+        function showCardError(msg) {
+            cardMessages.innerText = msg
+            cardMessages.classList.remove('d-none')
+            cardMessages.classList.remove('alert-success')
+            cardMessages.classList.add('alert-danger')
+        }
+
+        function showCardSuccess() {
+            cardMessages.innerText = "Payment Successful"
+            cardMessages.classList.remove('d-none')
+            cardMessages.classList.add('alert-success')
+            cardMessages.classList.remove('alert-danger')
+        }
+
         function val() {
             let form = document.getElementById('charge_form')
             if (form.checkValidity() === false) {
@@ -73,6 +102,57 @@
                 return
             }
             form.classList.add('was-validated')
+            hidePayButtons()
+
+            let amountToCharge = String(parseFloat(document.getElementById('amount').value) * 100)
+            let payload = {
+                amount: amountToCharge,
+                currency: 'usd',
+            }
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            }
+            fetch("http://localhost:4001/api/payment-intent",requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    stripe.confirmCardPayment(data.client_secret, {
+                        payment_method: {
+                            card: card,
+                            billing_details: {
+                                name: document.getElementById('cardholder-name').value,
+                                email: document.getElementById('cardholder-email').value,
+                            }
+                        }
+                    }).then(function (result) {
+                        if (result.error) {
+                            // card declined
+                            showCardError(result.error.message)
+                            showPayButtons()
+                        } else {
+                            if (result.paymentIntent.status === 'succeeded') {
+                                // card accepted
+                                document.getElementById('payment_intent').value = result.paymentIntent.id
+                                document.getElementById('payment_method').value = result.paymentIntent.payment_method_types[0]
+                                document.getElementById('payment_amount').value = result.paymentIntent.amount
+                                document.getElementById('payment_currency').value = result.paymentIntent.currency
+                                processing.classList.add('d-none')
+                                showCardSuccess()
+                                // submit form
+
+                            }
+                        }
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                    showCardError("An error occurred while processing your payment. Please try again.")
+                    showPayButtons()
+                })
         }
 
         (function () {

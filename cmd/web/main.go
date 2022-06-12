@@ -44,7 +44,7 @@ func (app *application) server() error {
 		WriteTimeout:      10 * time.Second,
 	}
 
-	app.infoLog.Println(fmt.Sprintf("🚀 Starting server (%s 🏞) on port %d", app.config.env, app.config.port))
+	app.infoLog.Println(fmt.Sprintf("🚀 Starting http 🖥 server (%s 🏞) on port %d", app.config.env, app.config.port))
 
 	return srv.ListenAndServe()
 }
@@ -59,8 +59,8 @@ func main() {
 	cfg.stripe.key = os.Getenv("STRIPE_KEY")
 	cfg.stripe.secret = os.Getenv("STRIPE_SECRET")
 
-	infoLog := log.New(os.Stdout, "INFO 👓\t", log.Ldate|log.Ltime)
-	errorLog := log.New(os.Stdout, "ERROR 🔥\t", log.Ldate|log.Ltime|log.Lshortfile)
+	infoLog := log.New(os.Stdout, "🖥 INFO 🔎 \t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stdout, "🖥 ERROR 🔥 \t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	tc := make(map[string]*template.Template)
 

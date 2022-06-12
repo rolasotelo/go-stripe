@@ -73,6 +73,7 @@ fabric.properties
 
 ### Go template
 tmp/
+dist/
 
 # Binaries for programs and plugins
 *.exe
