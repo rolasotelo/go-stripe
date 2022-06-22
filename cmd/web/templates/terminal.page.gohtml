@@ -25,7 +25,7 @@
         </div>
         <div class="mb-3 mx-3">
             <label for="cardholder-email" class="form-label">Cardholder Email</label>
-            <input type="email" class="form-control" id="cardholder-email" name="cardholder_email"
+            <input type="email" class="form-control" id="cardholder-email" name="email"
                    required="" autocomplete="cardholder-email-new">
         </div>
 
@@ -68,7 +68,7 @@
         const payButton = document.getElementById('pay-button')
         const processing = document.getElementById('processing-payment')
 
-        stripe = Stripe('pk_test_')
+        stripe = Stripe('{{index .StringMap "publishable_key"}}')
 
         function hidePayButtons() {
             payButton.classList.add('d-none')
@@ -117,7 +117,7 @@
                 },
                 body: JSON.stringify(payload)
             }
-            fetch("http://localhost:4001/api/payment-intent",requestOptions)
+            fetch('{{.API}}/api/payment-intent',requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     stripe.confirmCardPayment(data.client_secret, {
@@ -143,6 +143,7 @@
                                 processing.classList.add('d-none')
                                 showCardSuccess()
                                 // submit form
+                                document.getElementById('charge_form').submit()
 
                             }
                         }
